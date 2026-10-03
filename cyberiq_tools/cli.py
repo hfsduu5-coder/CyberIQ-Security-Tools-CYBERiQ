@@ -8,6 +8,8 @@ from .dashboard import build_dashboard
 from .workspace import add_evidence, case_status, create_case
 from .findings import analyze_headers, analyze_text
 from .batch import analyze_directory
+from .builtin_plugins import load_builtin_plugins
+from .plugins import list_plugins, run_plugin
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -20,6 +22,7 @@ def main():
         x=sub.add_parser(name); x.add_argument("path"); add_output(x)
     v=sub.add_parser("verify-hash"); v.add_argument("path"); v.add_argument("expected"); v.add_argument("--algorithm",choices=("md5","sha1","sha256","sha512"),default="sha256"); add_output(v)
     d=sub.add_parser("dashboard"); d.add_argument("report_dir"); d.add_argument("--output",default="cyberiq-dashboard.html")
+    pl=sub.add_parser("plugin"); ps=pl.add_subparsers(dest="plugin_command",required=True); ps.add_parser("list"); pr=ps.add_parser("run"); pr.add_argument("name"); pr.add_argument("path"); add_output(pr)
     bt=sub.add_parser("batch"); bt.add_argument("path"); bt.add_argument("--pattern",default="*.log"); bt.add_argument("--limit",type=int,default=100); add_output(bt)
     an=sub.add_parser("analyze"); an.add_argument("path"); an.add_argument("--type",choices=("text","headers"),default="text"); add_output(an)
     case=sub.add_parser("case"); cs=case.add_subparsers(dest="case_command",required=True)
@@ -28,6 +31,15 @@ def main():
     ct=cs.add_parser("status"); ct.add_argument("case_path")
     a=p.parse_args()
     try:
+        if a.command=="plugin":
+            load_builtin_plugins()
+            if a.plugin_command=="list":
+                for x in list_plugins(): print(f"{x.name:12} {x.description}")
+            else:
+                data=run_plugin(a.name,read_text(a.path))
+                if a.output: print(f"Report saved: {save_report(data,a.output,a.format)}")
+                else: print(json.dumps(data,indent=2,ensure_ascii=False))
+            return 0
         if a.command=="batch":
             data=analyze_directory(a.path,a.pattern,a.limit)
             if a.output: print(f"Report saved: {save_report(data,a.output,a.format)}")
