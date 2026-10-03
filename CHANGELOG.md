@@ -1,5 +1,10 @@
 # Changelog
 
+## [9.3.0] - 2026-10-03
+### Added
+- Executive Markdown report generator for normalized analysis JSON.
+- Regression tests for case notes, lifecycle status, timeline, and executive reports.
+
 ## [9.1.0] - 2026-10-03
 ### Added
 - Responsive CyberIQ local dashboard with report, finding, severity, and schema summaries.
