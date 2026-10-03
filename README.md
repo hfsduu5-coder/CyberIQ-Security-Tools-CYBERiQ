@@ -81,6 +81,10 @@ python -m unittest discover -s tests -v
 ## Security Philosophy
 Authorization first • Offline analysis where practical • Evidence before conclusions • No embedded credentials • Small, readable utilities
 
+## Project Status
+
+This repository is maintained as part of my public cybersecurity and software-engineering portfolio. Development focuses on clear documentation, reproducible local workflows, defensive/educational use, and evidence-backed claims. CyberIQ branding uses the official team identity only when the official asset is available; placeholder logo artwork is not presented as official.
+
 ## Portfolio & attribution
 
 This repository documents my personal development work on CyberIQ Security Tools. External standards, libraries, and learning references remain credited to their respective authors and are not presented as my own.
