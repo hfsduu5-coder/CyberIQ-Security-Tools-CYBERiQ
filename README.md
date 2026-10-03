@@ -92,7 +92,7 @@ This repository documents my personal development work on CyberIQ Security Tools
 ## License
 MIT.
 
-## v9.6.0
+## v9.6.0 code milestone
 The v9 line adds structured case workspaces, evidence manifests, normalized findings, bounded batch analysis, an extension SDK, versioned document schemas, report exports, a local dashboard, architecture documentation, migration guidance, and expanded regression coverage.
 
 Documentation: `docs/ARCHITECTURE.md` • `docs/PLUGINS.md` • `docs/MIGRATION-v9.md` • `CHANGELOG.md`.
@@ -119,7 +119,7 @@ cyberiq-tools executive-report analysis.json --output executive-report.md
 ```
 The template separates observed review signals from analyst conclusions and documents that analysis is offline and based on supplied evidence.
 
-### v9.4–v9.5 polish
+### v9.4–v9.6 polish
 Search normalized findings across local JSON reports and optionally filter by severity:
 ```bash
 cyberiq-tools search ./reports "header" --severity low
@@ -129,3 +129,8 @@ Run a local release-readiness audit:
 cyberiq-tools release-check
 ```
 The release check validates expected project files and the local Python environment. It intentionally does not claim remote CI status.
+
+
+## v10 readiness boundary
+
+The current v9.6 code milestone has package metadata, migration documentation, local release checks, regression coverage, and CI configuration. A future v10 should only be declared after a documented compatibility review, verified CI evidence, and an intentional major-version migration plan. No v10 tag or GitHub Release is claimed by this repository today.
