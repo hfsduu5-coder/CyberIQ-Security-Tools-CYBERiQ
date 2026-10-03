@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.5.0] - 2026-10-03
+### Added
+- Local release-readiness audit with explicit CI-status limitation.
+
+## [9.4.0] - 2026-10-03
+### Added
+- Search across normalized local JSON findings.
+- Optional severity filtering and bounded result limits.
+- Regression coverage for report search.
+
 ## [9.3.0] - 2026-10-03
 ### Added
 - Executive Markdown report generator for normalized analysis JSON.
