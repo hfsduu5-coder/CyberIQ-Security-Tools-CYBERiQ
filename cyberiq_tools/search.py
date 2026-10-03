@@ -3,6 +3,10 @@ import json
 from pathlib import Path
 
 def search_reports(report_dir: str, query: str, severity: str|None=None, limit: int=50) -> dict:
+    if limit < 1 or limit > 500: raise ValueError("Search limit must be between 1 and 500.")
+    if severity is not None:
+        severity=severity.lower().strip()
+        if severity not in {"info","low","medium","high","critical"}: raise ValueError("Invalid severity.")
     root=Path(report_dir)
     if not root.is_dir(): raise ValueError(f"Directory not found: {root}")
     q=query.casefold().strip(); matches=[]
