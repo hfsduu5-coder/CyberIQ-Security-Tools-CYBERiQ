@@ -1,5 +1,10 @@
 # Changelog
 
+## [9.1.0] - 2026-10-03
+### Added
+- Responsive CyberIQ local dashboard with report, finding, severity, and schema summaries.
+- `doctor` command for offline local environment diagnostics.
+
 ## [9.0.0] - 2026-10-03
 ### Added
 - Stable v9 CLI milestone and package metadata.
