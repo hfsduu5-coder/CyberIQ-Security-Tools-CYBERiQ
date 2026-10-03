@@ -8,6 +8,7 @@ from cyberiq_tools.reporting import save_report
 from cyberiq_tools.schemas import validate_document
 from cyberiq_tools.workspace import add_evidence, add_note, case_status, case_timeline, create_case, set_status
 from cyberiq_tools.templates import executive_report
+from cyberiq_tools.search import search_reports
 
 class RegressionTests(unittest.TestCase):
     def test_core_and_reports(self):
@@ -39,5 +40,11 @@ class RegressionTests(unittest.TestCase):
         report=executive_report({"findings":[{"title":"Sample","severity":"low","kind":"test","evidence":{"count":1}}]})
         self.assertIn("CyberIQ Executive Security Report",report)
         self.assertIn("Sample",report)
+    def test_report_search(self):
+        with tempfile.TemporaryDirectory() as d:
+            Path(d,"a.json").write_text(json.dumps({"findings":[{"title":"Header review","severity":"low","kind":"headers","evidence":{}}]}),encoding="utf-8")
+            result=search_reports(d,"header","low")
+            self.assertEqual(len(result["matches"]),1)
+            self.assertFalse(result["truncated"])
 
 if __name__=="__main__": unittest.main()
