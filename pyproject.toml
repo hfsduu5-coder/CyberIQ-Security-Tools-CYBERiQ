@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyberiq-security-tools"
+version = "0.2.0"
+description = "Small offline defensive cybersecurity utilities by CyberIQ."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "Muqtada Al-Sadr Jarallah Khalif"}]
+keywords = ["cybersecurity","defensive-security","ctf","education","cli"]
+
+[project.scripts]
+cyberiq-tools = "cyberiq_tools.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cyberiq_tools*"]
