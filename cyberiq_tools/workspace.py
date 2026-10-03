@@ -25,7 +25,10 @@ def create_case(name: str, root: str="cases") -> Path:
 def add_evidence(case_path: str, evidence_path: str) -> dict:
     case=Path(case_path); meta_path,meta=_load(case); src=Path(evidence_path)
     if not src.is_file(): raise ValueError(f"File not found: {src}")
-    record={"name":src.name,"source_path":str(src.resolve()),"bytes":src.stat().st_size,"sha256":file_hashes(str(src))["sha256"],"recorded_utc":_now()}
+    digest=file_hashes(str(src))["sha256"]
+    for item in meta.get("evidence",[]):
+        if item.get("sha256")==digest: raise ValueError("Duplicate evidence content.")
+    record={"id":f"E-{len(meta.get('evidence',[]))+1:03d}","name":src.name,"bytes":src.stat().st_size,"sha256":digest,"recorded_utc":_now()}
     meta.setdefault("evidence",[]).append(record); meta.setdefault("timeline",[]).append({"at":record["recorded_utc"],"event":"evidence-recorded","name":src.name,"sha256":record["sha256"]})
     _save(meta_path,meta); return record
 
