@@ -10,6 +10,7 @@ from .findings import analyze_headers, analyze_text
 from .batch import analyze_directory
 from .builtin_plugins import load_builtin_plugins
 from .plugins import list_plugins, run_plugin
+from .doctor import doctor
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -18,6 +19,7 @@ def main():
     p=argparse.ArgumentParser(prog="cyberiq-tools",description="CyberIQ offline defensive security utilities.")
     p.add_argument("--version",action="version",version=f"%(prog)s {__version__}")
     sub=p.add_subparsers(dest="command",required=True)
+    sub.add_parser("doctor")
     for name in ("hashcheck","headers","logsummary","urls","indicators","metadata","inventory"):
         x=sub.add_parser(name); x.add_argument("path"); add_output(x)
     v=sub.add_parser("verify-hash"); v.add_argument("path"); v.add_argument("expected"); v.add_argument("--algorithm",choices=("md5","sha1","sha256","sha512"),default="sha256"); add_output(v)
@@ -31,6 +33,8 @@ def main():
     ct=cs.add_parser("status"); ct.add_argument("case_path")
     a=p.parse_args()
     try:
+        if a.command=="doctor":
+            print(json.dumps(doctor(),indent=2)); return 0
         if a.command=="plugin":
             load_builtin_plugins()
             if a.plugin_command=="list":
