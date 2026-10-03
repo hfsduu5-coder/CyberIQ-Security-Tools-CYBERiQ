@@ -1,2 +1,2 @@
 """CyberIQ defensive security utilities."""
-__version__ = "9.4.0"
+__version__ = "9.5.0"
