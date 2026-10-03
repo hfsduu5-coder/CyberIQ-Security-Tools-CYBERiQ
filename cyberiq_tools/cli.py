@@ -11,6 +11,7 @@ from .batch import analyze_directory
 from .builtin_plugins import load_builtin_plugins
 from .plugins import list_plugins, run_plugin
 from .doctor import doctor
+from .templates import executive_report
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -20,6 +21,7 @@ def main():
     p.add_argument("--version",action="version",version=f"%(prog)s {__version__}")
     sub=p.add_subparsers(dest="command",required=True)
     sub.add_parser("doctor")
+    ex=sub.add_parser("executive-report"); ex.add_argument("path"); ex.add_argument("--output",default="cyberiq-executive-report.md")
     for name in ("hashcheck","headers","logsummary","urls","indicators","metadata","inventory"):
         x=sub.add_parser(name); x.add_argument("path"); add_output(x)
     v=sub.add_parser("verify-hash"); v.add_argument("path"); v.add_argument("expected"); v.add_argument("--algorithm",choices=("md5","sha1","sha256","sha512"),default="sha256"); add_output(v)
@@ -36,6 +38,8 @@ def main():
     cst=cs.add_parser("set-status"); cst.add_argument("case_path"); cst.add_argument("status",choices=("open","review","closed"))
     a=p.parse_args()
     try:
+        if a.command=="executive-report":
+            data=json.loads(read_text(a.path)); from pathlib import Path; Path(a.output).write_text(executive_report(data),encoding="utf-8"); print(f"Executive report saved: {a.output}"); return 0
         if a.command=="doctor":
             print(json.dumps(doctor(),indent=2)); return 0
         if a.command=="plugin":
