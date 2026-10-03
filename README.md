@@ -2,7 +2,7 @@
 
 # CyberIQ Security Tools
 
-![Version](https://img.shields.io/badge/version-9.0.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
+![Version](https://img.shields.io/badge/version-9.1.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
 
@@ -30,6 +30,7 @@ A collection of small, auditable **defensive cybersecurity utilities** for labs,
 | `analyze` | Produce normalized defensive findings from supplied data |
 | `batch` | Run bounded offline analysis across local files |
 | `plugin` | List or run registered offline analysis plugins |
+| `doctor` | Check local Python support, write access, version, and built-in plugins |
 
 ## Quick Start
 
@@ -72,7 +73,10 @@ Authorization first • Offline analysis where practical • Evidence before con
 ## License
 MIT.
 
-## v9.0.0 Stable Milestone
+## v9.1.0
 The v9 line adds structured case workspaces, evidence manifests, normalized findings, bounded batch analysis, an extension SDK, versioned document schemas, report exports, a local dashboard, architecture documentation, migration guidance, and expanded regression coverage.
 
 Documentation: `docs/ARCHITECTURE.md` • `docs/PLUGINS.md` • `docs/MIGRATION-v9.md` • `CHANGELOG.md`.
+
+### v9.1 improvements
+The local dashboard now summarizes report and finding counts, severity distribution, document schemas, and report contents in a responsive CyberIQ dark interface. The new `doctor` command performs local environment diagnostics without contacting external systems.
