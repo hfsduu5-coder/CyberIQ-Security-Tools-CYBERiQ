@@ -22,3 +22,5 @@ jobs:
       - run: python -m cyberiq_tools --help
       - run: python -m cyberiq_tools doctor
       - run: python -m cyberiq_tools release-check
+
+# CI_EVIDENCE: 1970-01-01 manual-verification trigger marker
