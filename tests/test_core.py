@@ -32,11 +32,16 @@ class RegressionTests(unittest.TestCase):
     def test_case_manifest(self):
         with tempfile.TemporaryDirectory() as d:
             case=create_case("demo",d); e=Path(d)/"evidence.txt"; e.write_text("sample",encoding="utf-8")
-            record=add_evidence(str(case),str(e)); self.assertEqual(len(record["sha256"]),64)
+            record=add_evidence(str(case),str(e)); self.assertEqual(len(record["sha256"]),64); self.assertEqual(record["id"],"E-001")
+            with self.assertRaises(ValueError): add_evidence(str(case),str(e))
             self.assertEqual(case_status(str(case))["evidence_count"],1)
             add_note(str(case),"reviewed"); set_status(str(case),"review")
             self.assertEqual(case_status(str(case))["status"],"review")
             self.assertGreaterEqual(len(case_timeline(str(case))),4)
+    def test_batch_limit(self):
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(ValueError): analyze_directory(d,limit=0)
+            with self.assertRaises(ValueError): analyze_directory(d,limit=1001)
     def test_executive_report(self):
         report=executive_report({"findings":[{"title":"Sample","severity":"low","kind":"test","evidence":{"count":1}}]})
         self.assertIn("CyberIQ Executive Security Report",report)
