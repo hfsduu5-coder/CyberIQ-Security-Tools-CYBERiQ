@@ -17,9 +17,10 @@ class RegressionTests(unittest.TestCase):
             h=file_hashes(str(p)); self.assertTrue(verify_hash(str(p),h["sha256"])["match"])
             self.assertEqual(file_metadata(str(p))["bytes"],p.stat().st_size)
             self.assertEqual(directory_inventory(d)["files"],1)
-            self.assertEqual(log_summary(p.read_text())["levels"]["ERROR"],1)
+            summary=log_summary(p.read_text()); self.assertEqual(summary["levels"]["ERROR"],1); self.assertEqual(summary["unique_ipv4_values"],summary["unique_ipv4_like_values"])
             self.assertEqual(url_inventory(p.read_text())["urls_found"],1)
             self.assertEqual(indicators(p.read_text())["sha256_like_values"],1)
+            self.assertEqual(indicators(p.read_text())["ipv4_values"],indicators(p.read_text())["ipv4_like_values"])
             self.assertEqual(indicators("192.0.2.1 999.999.999.999")["ipv4_values"],1)
             out=Path(d)/"r.json"; save_report({"ok":True},str(out)); self.assertTrue(json.loads(out.read_text())["ok"])
     def test_headers_findings_and_batch(self):
