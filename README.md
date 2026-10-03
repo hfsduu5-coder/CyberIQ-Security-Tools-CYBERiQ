@@ -2,7 +2,7 @@
 
 # CyberIQ Security Tools
 
-![Version](https://img.shields.io/badge/version-0.2.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
+![Version](https://img.shields.io/badge/version-3.0.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
 
@@ -23,6 +23,9 @@ A collection of small, auditable **defensive cybersecurity utilities** for labs,
 | `verify-hash` | Compare a local file hash against an expected value |
 | `urls` | Inventory URLs, hosts, schemes, and file extensions from saved text |
 | `indicators` | Count IPv4/domain/hash-like patterns without reputation lookups |
+| `metadata` | Inspect local file metadata and SHA-256 offline |
+| `inventory` | Build a recursive local directory inventory |
+| `dashboard` | Render local JSON reports into a read-only HTML dashboard |
 
 ## Quick Start
 
@@ -40,6 +43,9 @@ python -m cyberiq_tools logsummary ./app.log
 python -m cyberiq_tools urls ./examples/sample.log
 python -m cyberiq_tools indicators ./examples/sample.log
 python -m cyberiq_tools verify-hash ./sample.bin EXPECTED_SHA256
+python -m cyberiq_tools metadata ./sample.bin --output report.json
+python -m cyberiq_tools inventory ./examples --output inventory.html --format html
+python -m cyberiq_tools dashboard ./reports --output cyberiq-dashboard.html
 ```
 
 No network scanning, exploitation, or reputation lookup is performed by these tools.
@@ -61,3 +67,6 @@ Authorization first • Offline analysis where practical • Evidence before con
 
 ## License
 MIT.
+
+## Road to v9.0.0
+Development is milestone-driven rather than version-number-only. See [CHANGELOG.md](CHANGELOG.md) for the v4 → v9 plan. Each major milestone must add tested capability before the version is advanced.
