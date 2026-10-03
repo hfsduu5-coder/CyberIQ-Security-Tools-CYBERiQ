@@ -13,7 +13,10 @@ def _load(case: Path) -> tuple[Path,dict]:
     f=case/"case.json"
     if not f.is_file(): raise ValueError("Not a CyberIQ case workspace.")
     return f,json.loads(f.read_text(encoding="utf-8"))
-def _save(path: Path,data: dict): path.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+def _save(path: Path,data: dict):
+    tmp=path.with_name(path.name+".tmp")
+    tmp.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+    tmp.replace(path)
 
 def create_case(name: str, root: str="cases") -> Path:
     base=Path(root)/_safe_name(name)
