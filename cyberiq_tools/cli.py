@@ -5,7 +5,7 @@ from .core import file_hashes, header_review, indicators, log_summary, read_text
 from .metadata import directory_inventory, file_metadata
 from .reporting import save_report
 from .dashboard import build_dashboard
-from .workspace import add_evidence, case_status, create_case
+from .workspace import add_evidence, add_note, case_status, case_timeline, create_case, set_status
 from .findings import analyze_headers, analyze_text
 from .batch import analyze_directory
 from .builtin_plugins import load_builtin_plugins
@@ -31,6 +31,9 @@ def main():
     cn=cs.add_parser("new"); cn.add_argument("name"); cn.add_argument("--root",default="cases")
     ca=cs.add_parser("add"); ca.add_argument("case_path"); ca.add_argument("evidence_path")
     ct=cs.add_parser("status"); ct.add_argument("case_path")
+    ctl=cs.add_parser("timeline"); ctl.add_argument("case_path")
+    cnn=cs.add_parser("note"); cnn.add_argument("case_path"); cnn.add_argument("text")
+    cst=cs.add_parser("set-status"); cst.add_argument("case_path"); cst.add_argument("status",choices=("open","review","closed"))
     a=p.parse_args()
     try:
         if a.command=="doctor":
@@ -57,6 +60,9 @@ def main():
         if a.command=="case":
             if a.case_command=="new": print(f"Case created: {create_case(a.name,a.root)}")
             elif a.case_command=="add": print(json.dumps(add_evidence(a.case_path,a.evidence_path),indent=2))
+            elif a.case_command=="timeline": print(json.dumps(case_timeline(a.case_path),indent=2))
+            elif a.case_command=="note": print(json.dumps(add_note(a.case_path,a.text),indent=2))
+            elif a.case_command=="set-status": print(json.dumps(set_status(a.case_path,a.status),indent=2))
             else: print(json.dumps(case_status(a.case_path),indent=2))
             return 0
         if a.command=="dashboard":
