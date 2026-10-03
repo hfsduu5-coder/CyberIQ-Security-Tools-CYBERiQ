@@ -7,7 +7,7 @@
 
 **Project mission:** provide small, auditable, local-first defensive utilities for evidence handling, CTF learning, education, and authorized security work.
 
-![Version](https://img.shields.io/badge/version-9.5.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
+![Version](https://img.shields.io/badge/version-9.5.1-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
 
@@ -92,7 +92,7 @@ This repository documents my personal development work on CyberIQ Security Tools
 ## License
 MIT.
 
-## v9.5.0
+## v9.5.1
 The v9 line adds structured case workspaces, evidence manifests, normalized findings, bounded batch analysis, an extension SDK, versioned document schemas, report exports, a local dashboard, architecture documentation, migration guidance, and expanded regression coverage.
 
 Documentation: `docs/ARCHITECTURE.md` • `docs/PLUGINS.md` • `docs/MIGRATION-v9.md` • `CHANGELOG.md`.
