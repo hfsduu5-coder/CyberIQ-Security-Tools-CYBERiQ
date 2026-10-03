@@ -1,0 +1,4 @@
+INFO CyberIQ lab started
+WARN sample event from 192.0.2.10
+ERROR sample request https://lab.example/login returned 500
+INFO asset https://lab.example/static/app.js
