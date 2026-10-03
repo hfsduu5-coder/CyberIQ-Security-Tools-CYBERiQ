@@ -20,6 +20,7 @@ class RegressionTests(unittest.TestCase):
             self.assertEqual(log_summary(p.read_text())["levels"]["ERROR"],1)
             self.assertEqual(url_inventory(p.read_text())["urls_found"],1)
             self.assertEqual(indicators(p.read_text())["sha256_like_values"],1)
+            self.assertEqual(indicators("192.0.2.1 999.999.999.999")["ipv4_values"],1)
             out=Path(d)/"r.json"; save_report({"ok":True},str(out)); self.assertTrue(json.loads(out.read_text())["ok"])
     def test_headers_findings_and_batch(self):
         self.assertIn("strict-transport-security",header_review("X-Content-Type-Options: nosniff")["missing"])
