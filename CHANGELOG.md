@@ -1,6 +1,10 @@
+## 9.5.1
+- Validate IPv4 observations before counting them in offline log and indicator analysis.
+- Add regression coverage for malformed IPv4-like input.
+
 # Changelog
 
-## [9.5.0] - 2026-10-03
+## [9.5.1] - 2026-10-03
 ### Added
 - Local release-readiness audit with explicit CI-status limitation.
 
