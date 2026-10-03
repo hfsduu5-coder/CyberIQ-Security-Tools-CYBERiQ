@@ -2,6 +2,11 @@
 
 # CyberIQ Security Tools
 
+> **Personal cybersecurity project & portfolio work by Muqtada Al-Sadr Jarallah Khalif (Al-Hantooshi)**  
+> Developer • Team Leader of CyberIQ
+
+**Project mission:** provide small, auditable, local-first defensive utilities for evidence handling, CTF learning, education, and authorized security work.
+
 ![Version](https://img.shields.io/badge/version-9.5.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
@@ -31,6 +36,12 @@ A collection of small, auditable **defensive cybersecurity utilities** for labs,
 | `batch` | Run bounded offline analysis across local files |
 | `plugin` | List or run registered offline analysis plugins |
 | `doctor` | Check local Python support, write access, version, and built-in plugins |
+
+## Architecture at a glance
+
+**Local evidence → integrity/metadata → offline analyzers → normalized findings → case workspace → reports/dashboard**
+
+The toolkit deliberately avoids network scanning and exploitation. Its core workflow is evidence-driven and designed to remain easy to audit.
 
 ## Quick Start
 
@@ -69,6 +80,10 @@ python -m unittest discover -s tests -v
 
 ## Security Philosophy
 Authorization first • Offline analysis where practical • Evidence before conclusions • No embedded credentials • Small, readable utilities
+
+## Portfolio & attribution
+
+This repository documents my personal development work on CyberIQ Security Tools. External standards, libraries, and learning references remain credited to their respective authors and are not presented as my own.
 
 ## License
 MIT.
