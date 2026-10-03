@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.0.0] - 2026-10-03
+### Added
+- Stable v9 CLI milestone and package metadata.
+- Structured local case workspaces and SHA-256 evidence manifests.
+- Normalized defensive findings with versioned document identifiers.
+- Bounded offline batch analysis.
+- Plugin registry SDK with built-in offline analyzers.
+- Schema validation helpers.
+- Architecture, plugin, and v9 migration documentation.
+- Expanded regression coverage.
+
+### Safety model
+- Offline-first analysis of supplied/local data.
+- No target scanning, exploitation, credential testing, persistence, evasion, or reputation lookup.
+
 ## [3.0.0] - 2026-10-03
 ### Added
 - Local file metadata analyzer.
