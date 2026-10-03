@@ -13,6 +13,7 @@ from .plugins import list_plugins, run_plugin
 from .doctor import doctor
 from .templates import executive_report
 from .search import search_reports
+from .release import release_check
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -22,6 +23,7 @@ def main():
     p.add_argument("--version",action="version",version=f"%(prog)s {__version__}")
     sub=p.add_subparsers(dest="command",required=True)
     sub.add_parser("doctor")
+    sub.add_parser("release-check")
     ex=sub.add_parser("executive-report"); ex.add_argument("path"); ex.add_argument("--output",default="cyberiq-executive-report.md")
     sr=sub.add_parser("search"); sr.add_argument("report_dir"); sr.add_argument("query",nargs="?",default=""); sr.add_argument("--severity",choices=("info","low","medium","high","critical")); sr.add_argument("--limit",type=int,default=50)
     for name in ("hashcheck","headers","logsummary","urls","indicators","metadata","inventory"):
@@ -44,6 +46,8 @@ def main():
             print(json.dumps(search_reports(a.report_dir,a.query,a.severity,a.limit),indent=2,ensure_ascii=False)); return 0
         if a.command=="executive-report":
             data=json.loads(read_text(a.path)); from pathlib import Path; Path(a.output).write_text(executive_report(data),encoding="utf-8"); print(f"Executive report saved: {a.output}"); return 0
+        if a.command=="release-check":
+            print(json.dumps(release_check(),indent=2)); return 0
         if a.command=="doctor":
             print(json.dumps(doctor(),indent=2)); return 0
         if a.command=="plugin":
