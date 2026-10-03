@@ -7,6 +7,7 @@ from .reporting import save_report
 from .dashboard import build_dashboard
 from .workspace import add_evidence, case_status, create_case
 from .findings import analyze_headers, analyze_text
+from .batch import analyze_directory
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -19,6 +20,7 @@ def main():
         x=sub.add_parser(name); x.add_argument("path"); add_output(x)
     v=sub.add_parser("verify-hash"); v.add_argument("path"); v.add_argument("expected"); v.add_argument("--algorithm",choices=("md5","sha1","sha256","sha512"),default="sha256"); add_output(v)
     d=sub.add_parser("dashboard"); d.add_argument("report_dir"); d.add_argument("--output",default="cyberiq-dashboard.html")
+    bt=sub.add_parser("batch"); bt.add_argument("path"); bt.add_argument("--pattern",default="*.log"); bt.add_argument("--limit",type=int,default=100); add_output(bt)
     an=sub.add_parser("analyze"); an.add_argument("path"); an.add_argument("--type",choices=("text","headers"),default="text"); add_output(an)
     case=sub.add_parser("case"); cs=case.add_subparsers(dest="case_command",required=True)
     cn=cs.add_parser("new"); cn.add_argument("name"); cn.add_argument("--root",default="cases")
@@ -26,6 +28,11 @@ def main():
     ct=cs.add_parser("status"); ct.add_argument("case_path")
     a=p.parse_args()
     try:
+        if a.command=="batch":
+            data=analyze_directory(a.path,a.pattern,a.limit)
+            if a.output: print(f"Report saved: {save_report(data,a.output,a.format)}")
+            else: print(json.dumps(data,indent=2,ensure_ascii=False))
+            return 0
         if a.command=="analyze":
             data=analyze_headers(read_text(a.path)) if a.type=="headers" else analyze_text(read_text(a.path))
             if a.output: print(f"Report saved: {save_report(data,a.output,a.format)}")
