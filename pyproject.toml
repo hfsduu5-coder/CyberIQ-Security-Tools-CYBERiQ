@@ -10,6 +10,21 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 authors = [{name = "Muqtada Al-Sadr Jarallah Khalif"}]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+]
+[project.urls]
+Repository = "https://github.com/hfsduu5-coder/CyberIQ-Security-Tools-CYBERiQ"
+Issues = "https://github.com/hfsduu5-coder/CyberIQ-Security-Tools-CYBERiQ/issues"
 keywords = ["cybersecurity","defensive-security","ctf","education","cli"]
 
 [project.scripts]
