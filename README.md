@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/cyberiq-logo.svg" width="92" alt="CyberIQ logo"><br><strong>CyberIQ</strong></p>
+<p align="center"><strong>CyberIQ</strong></p>
 
 # CyberIQ Security Tools
 
