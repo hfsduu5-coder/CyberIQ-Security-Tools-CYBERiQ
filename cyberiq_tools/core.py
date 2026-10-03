@@ -53,9 +53,16 @@ def url_inventory(text: str) -> dict:
         if ext and len(ext)<=10: extensions[ext]+=1
     return {"urls_found":len(urls),"unique_hosts":len(hosts),"schemes":dict(sorted(schemes.items())),"top_hosts":dict(hosts.most_common(10)),"extensions":dict(extensions.most_common(10)),"note":"Offline inventory only; URLs are not contacted."}
 
+def _valid_ipv4(value: str) -> bool:
+    try:
+        return ipaddress.ip_address(value).version == 4
+    except ValueError:
+        return False
+
 def indicators(text: str) -> dict:
-    ipv4=set(re.findall(r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])",text))
+    candidates=set(re.findall(r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])",text))
+    ipv4={x for x in candidates if _valid_ipv4(x)}
     domains=set(re.findall(r"(?<![@\w-])(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?![\w-])",text))
     sha256=set(re.findall(r"(?i)(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])",text))
     md5=set(re.findall(r"(?i)(?<![0-9a-f])[0-9a-f]{32}(?![0-9a-f])",text))
-    return {"ipv4_values":len(ipv4),"domain_like_values":len(domains),"sha256_like_values":len(sha256),"md5_like_values":len(md5),"note":"Pattern counts only; no reputation or maliciousness determination is performed."}
+    return {"ipv4_values":len(ipv4),"ipv4_like_values":len(ipv4),"domain_like_values":len(domains),"sha256_like_values":len(sha256),"md5_like_values":len(md5),"note":"Pattern counts only; no reputation or maliciousness determination is performed."}
