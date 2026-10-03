@@ -6,6 +6,7 @@ from .findings import analyze_text
 def analyze_directory(path: str, pattern: str="*.log", limit: int=100) -> dict:
     root=Path(path)
     if not root.is_dir(): raise ValueError(f"Directory not found: {root}")
+    if limit < 1 or limit > 1000: raise ValueError("Batch limit must be between 1 and 1000.")
     results=[]; errors=[]
     for p in sorted(root.rglob(pattern))[:limit]:
         try: results.append({"file":str(p.relative_to(root)),"analysis":analyze_text(read_text(str(p)))})
