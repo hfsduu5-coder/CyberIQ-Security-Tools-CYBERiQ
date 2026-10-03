@@ -12,6 +12,7 @@ from .builtin_plugins import load_builtin_plugins
 from .plugins import list_plugins, run_plugin
 from .doctor import doctor
 from .templates import executive_report
+from .search import search_reports
 
 def add_output(p):
     p.add_argument("--output"); p.add_argument("--format",choices=("json","md","html","csv"),default="json")
@@ -22,6 +23,7 @@ def main():
     sub=p.add_subparsers(dest="command",required=True)
     sub.add_parser("doctor")
     ex=sub.add_parser("executive-report"); ex.add_argument("path"); ex.add_argument("--output",default="cyberiq-executive-report.md")
+    sr=sub.add_parser("search"); sr.add_argument("report_dir"); sr.add_argument("query",nargs="?",default=""); sr.add_argument("--severity",choices=("info","low","medium","high","critical")); sr.add_argument("--limit",type=int,default=50)
     for name in ("hashcheck","headers","logsummary","urls","indicators","metadata","inventory"):
         x=sub.add_parser(name); x.add_argument("path"); add_output(x)
     v=sub.add_parser("verify-hash"); v.add_argument("path"); v.add_argument("expected"); v.add_argument("--algorithm",choices=("md5","sha1","sha256","sha512"),default="sha256"); add_output(v)
@@ -38,6 +40,8 @@ def main():
     cst=cs.add_parser("set-status"); cst.add_argument("case_path"); cst.add_argument("status",choices=("open","review","closed"))
     a=p.parse_args()
     try:
+        if a.command=="search":
+            print(json.dumps(search_reports(a.report_dir,a.query,a.severity,a.limit),indent=2,ensure_ascii=False)); return 0
         if a.command=="executive-report":
             data=json.loads(read_text(a.path)); from pathlib import Path; Path(a.output).write_text(executive_report(data),encoding="utf-8"); print(f"Executive report saved: {a.output}"); return 0
         if a.command=="doctor":
