@@ -2,7 +2,7 @@
 
 # CyberIQ Security Tools
 
-![Version](https://img.shields.io/badge/version-9.3.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
+![Version](https://img.shields.io/badge/version-9.5.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
 
@@ -73,7 +73,7 @@ Authorization first • Offline analysis where practical • Evidence before con
 ## License
 MIT.
 
-## v9.3.0
+## v9.5.0
 The v9 line adds structured case workspaces, evidence manifests, normalized findings, bounded batch analysis, an extension SDK, versioned document schemas, report exports, a local dashboard, architecture documentation, migration guidance, and expanded regression coverage.
 
 Documentation: `docs/ARCHITECTURE.md` • `docs/PLUGINS.md` • `docs/MIGRATION-v9.md` • `CHANGELOG.md`.
@@ -99,3 +99,14 @@ cyberiq-tools analyze ./examples/sample.log --output analysis.json
 cyberiq-tools executive-report analysis.json --output executive-report.md
 ```
 The template separates observed review signals from analyst conclusions and documents that analysis is offline and based on supplied evidence.
+
+### v9.4–v9.5 polish
+Search normalized findings across local JSON reports and optionally filter by severity:
+```bash
+cyberiq-tools search ./reports "header" --severity low
+```
+Run a local release-readiness audit:
+```bash
+cyberiq-tools release-check
+```
+The release check validates expected project files and the local Python environment. It intentionally does not claim remote CI status.
