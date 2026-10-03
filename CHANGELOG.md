@@ -1,4 +1,5 @@
 ## 9.6.0
+- Code milestone; does not by itself imply a published GitHub tag or Release.
 - Validate IPv4 observations before counting them in offline log and indicator analysis.
 - Add regression coverage for malformed IPv4-like input.
 
