@@ -1,5 +1,5 @@
 from __future__ import annotations
-import hashlib, re
+import hashlib, re, ipaddress
 from collections import Counter
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -40,7 +40,7 @@ def log_summary(text: str) -> dict:
         m=re.search(r"\b(ERROR|WARN|WARNING|INFO|DEBUG|CRITICAL)\b",line,re.I)
         if m: levels[m.group(1).upper()]+=1
     ips=set(re.findall(r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])",text))
-    return {"lines":len(lines),"levels":dict(sorted(levels.items())),"unique_ipv4_like_values":len(ips),"note":"Offline summary only; addresses are not contacted."}
+    return {"lines":len(lines),"levels":dict(sorted(levels.items())),"unique_ipv4_values":len(ips),"note":"Offline summary only; addresses are not contacted."}
 
 def url_inventory(text: str) -> dict:
     urls=re.findall(r"https?://[^\s\]\[<>'\"]+",text)
@@ -58,4 +58,4 @@ def indicators(text: str) -> dict:
     domains=set(re.findall(r"(?<![@\w-])(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?![\w-])",text))
     sha256=set(re.findall(r"(?i)(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])",text))
     md5=set(re.findall(r"(?i)(?<![0-9a-f])[0-9a-f]{32}(?![0-9a-f])",text))
-    return {"ipv4_like_values":len(ipv4),"domain_like_values":len(domains),"sha256_like_values":len(sha256),"md5_like_values":len(md5),"note":"Pattern counts only; no reputation or maliciousness determination is performed."}
+    return {"ipv4_values":len(ipv4),"domain_like_values":len(domains),"sha256_like_values":len(sha256),"md5_like_values":len(md5),"note":"Pattern counts only; no reputation or maliciousness determination is performed."}
