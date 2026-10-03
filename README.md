@@ -2,7 +2,7 @@
 
 # CyberIQ Security Tools
 
-![Version](https://img.shields.io/badge/version-3.0.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
+![Version](https://img.shields.io/badge/version-9.0.0-B00020) ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-800020)
 
 A collection of small, auditable **defensive cybersecurity utilities** for labs, education, CTF analysis, and authorized security work.
 
@@ -26,6 +26,10 @@ A collection of small, auditable **defensive cybersecurity utilities** for labs,
 | `metadata` | Inspect local file metadata and SHA-256 offline |
 | `inventory` | Build a recursive local directory inventory |
 | `dashboard` | Render local JSON reports into a read-only HTML dashboard |
+| `case` | Create local case workspaces and evidence hash manifests |
+| `analyze` | Produce normalized defensive findings from supplied data |
+| `batch` | Run bounded offline analysis across local files |
+| `plugin` | List or run registered offline analysis plugins |
 
 ## Quick Start
 
@@ -68,5 +72,7 @@ Authorization first • Offline analysis where practical • Evidence before con
 ## License
 MIT.
 
-## Road to v9.0.0
-Development is milestone-driven rather than version-number-only. See [CHANGELOG.md](CHANGELOG.md) for the v4 → v9 plan. Each major milestone must add tested capability before the version is advanced.
+## v9.0.0 Stable Milestone
+The v9 line adds structured case workspaces, evidence manifests, normalized findings, bounded batch analysis, an extension SDK, versioned document schemas, report exports, a local dashboard, architecture documentation, migration guidance, and expanded regression coverage.
+
+Documentation: `docs/ARCHITECTURE.md` • `docs/PLUGINS.md` • `docs/MIGRATION-v9.md` • `CHANGELOG.md`.
