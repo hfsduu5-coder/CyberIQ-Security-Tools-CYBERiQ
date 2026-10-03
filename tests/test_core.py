@@ -47,6 +47,10 @@ class RegressionTests(unittest.TestCase):
         report=executive_report({"findings":[{"title":"Sample","severity":"low","kind":"test","evidence":{"count":1}}]})
         self.assertIn("CyberIQ Executive Security Report",report)
         self.assertIn("Sample",report)
+        self.assertIn("Severity distribution",report)
+        self.assertIn("analyst validation",report)
+        empty=executive_report({"findings":[]})
+        self.assertIn("No normalized findings",empty)
     def test_report_search(self):
         with tempfile.TemporaryDirectory() as d:
             Path(d,"a.json").write_text(json.dumps({"findings":[{"title":"Header review","severity":"low","kind":"headers","evidence":{}}]}),encoding="utf-8")
